@@ -1,11 +1,5 @@
 {-
 
-Universidade de brasília - FGA
-
-Phelipe Wener - 12/0132893
-
-Trabalho da disciplina de paradigmas de software, módulo haskell
-
 SOME SAMPLES
 
 To insert use:
@@ -22,9 +16,10 @@ To create new tree
 
 import System.Random
 
-
+-- Triangles vertex are formed only to this directions
 data Orientation = East | West | NorthE | NorthW | SouthE | SouthW | None deriving (Ord, Show, Eq, Enum)
 
+-- Attribute one code to each Orientation
 equivalent :: Int -> Orientation
 equivalent code
   | code == 1 = East
@@ -36,8 +31,7 @@ equivalent code
   | otherwise = None
 
 
---g <- newStdGen
-
+-- Get a random number of elements
 getRandomOrientation :: StdGen -> Orientation
 getRandomOrientation gen = equivalent(randomNum) where (randomNum, novoGen) = randomR(1,6) gen :: (Int, StdGen)
 
@@ -45,16 +39,17 @@ getRandomOrientation gen = equivalent(randomNum) where (randomNum, novoGen) = ra
 -- Sample Node: (Node East (Node West Null Null) (Node NorthW Null Null))
 data OrientationTree tree = Null | Node tree (OrientationTree tree) (OrientationTree tree) deriving (Show)
 
--- Count the number of elements
+-- Count the number of leafs
+count :: (Ord tree) => OrientationTree tree -> Int
 count Null = 0
 count (Node x left right) = 1 + count(left) + count(right)
 
--- See if is empty
-empty :: (Ord a) => OrientationTree a -> Bool
+-- See if tree is empty
+empty :: (Ord tree) => OrientationTree tree -> Bool
 empty Null = True
 empty  _  = False
 
--- Insert new Node
+-- Insert a new Node
 insert :: (Ord tree) => OrientationTree tree -> tree -> OrientationTree tree
 insert Null t = (Node t Null Null)
 insert (Node root left right) t
@@ -62,7 +57,7 @@ insert (Node root left right) t
    | root  < t = Node root left (insert right t)
    | root  > t = Node root (insert left t) right
 
-
+-- Create a new node
 ctree :: (Ord tree) => [tree] -> OrientationTree tree
 ctree [] = Null
 ctree (h:t) = ctree2 (Node h Null Null) t
