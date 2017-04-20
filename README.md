@@ -4,16 +4,16 @@ Each triangle should be equilateral, so it's needed one chain of these triangles
 
 ## Algorithm
 
-1. Choose n triangles
+1. Choose n iterations
 2. Generate one random point
-3. Decide where go
-	- 3.1. Choose one of six places that will be a triangle vertex
-4. Have space to this point?
-	- 4.1. No
-		- Go to another point:
-	- 4.2. Yes
-		- Move
-5. Run all steps below the first step with n times
+3. Decide 2 places where go:
+	- Choose one of six places that will be a triangle vertex
+	- Have space to this point?
+		- No
+		-	Go to another point:
+		- Yes
+		-	Move and save has node
+4. Run n times
 
 # Results
 

@@ -57,7 +57,7 @@ insert (Node root left right) t
    | root  < t = Node root left (insert right t)
    | root  > t = Node root (insert left t) right
 
--- Create a new node
+-- Create a new tree passing one list of Orientation
 ctree :: (Ord tree) => [tree] -> OrientationTree tree
 ctree [] = Null
 ctree (h:t) = ctree2 (Node h Null Null) t
